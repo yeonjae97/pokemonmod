@@ -50,7 +50,7 @@ public class PokemonAmount{
         int pokemonInBoxAmount = pcs.countPokemon();
         int totalPokemon = pokemonEntryAmount + pokemonInBoxAmount;
 
-        player.sendMessage(new StringTextComponent("§b현재 &a" + nickName + " §f님의 총 포켓몬 갯수는 §a" + totalPokemon + "개 입니다."), player.getUniqueID());
+        player.sendMessage(new StringTextComponent("§b현재 §a" + nickName + " §f님의 총 포켓몬 갯수는 §a" + totalPokemon + "개 입니다."), player.getUniqueID());
         return 1;
     }
 }
