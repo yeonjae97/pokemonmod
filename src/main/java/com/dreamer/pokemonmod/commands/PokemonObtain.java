@@ -3,6 +3,7 @@ package com.dreamer.pokemonmod.commands;
 import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.pixelmonmod.api.pokemon.PokemonSpecification;
 import com.pixelmonmod.api.pokemon.PokemonSpecificationProxy;
@@ -37,14 +38,14 @@ public class PokemonObtain {
     public PokemonObtain(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher.register(Commands.literal("포켓몬설정")
                 .then(Commands.literal("지급")
-                        .then(Commands.argument("닉네임", StringArgumentType.string())
+                        .then(Commands.argument("닉네임" ,StringArgumentType.string()))
                                 .then(Commands.argument( "포켓몬이름", StringArgumentType.greedyString())
                                         .executes((command) -> {
 
                                             String nickName = command.getArgument("닉네임", String.class);
                                             String pokemonName = command.getArgument("포켓몬이름", String.class);
                                             return obtain(nickName, pokemonName, command.getSource());
-                                        })))));
+                                        }))));
 
     }
 

@@ -80,11 +80,6 @@ public class PokemonChangeIvs{
                 .append("§b특수 방어력 : §e" + realSpecDef  + "\n")
                 .append("§b이동 속도 : §e" + realSpeed  + "\n")
                 .append("§f=========================================================");
-        if(pokemon.isLegendary()){
-            player.sendMessage(new StringTextComponent(sb.toString()), player.getUniqueID());
-        } else {
-            player.sendMessage(new StringTextComponent(sb.toString()), player.getUniqueID());
-        }
         return 1;
     }
 
