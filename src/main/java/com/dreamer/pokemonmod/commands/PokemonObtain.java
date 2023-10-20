@@ -45,7 +45,6 @@ public class PokemonObtain{
 
     private int obtain(String nickName, String pokemonName, CommandSource source) throws CommandException, CommandSyntaxException {
 
-
         GameProfile profile;
         profile = PixelmonCommandUtils.findProfile(nickName);
 
@@ -57,26 +56,12 @@ public class PokemonObtain{
         PlayerPartyStorage pps = StorageProxy.getParty(player);    // 프로필
         PCStorage pcs = StorageProxy.getPCForPlayer(player);                // 스토리지
 
-
-
         PokemonSpecification spec = PokemonSpecificationProxy.create(pokemonName);
         if (!spec.getValue(SpeciesRequirement.class).isPresent()) {
             throw new CommandException(new StringTextComponent("그런 이름을 가진 포켓몬이 존재하지 않습니다."));
         }
 
         Pokemon pokemon = spec.create();
-
-//        if (player != null && Pixelmon.EVENT_BUS.post(new PokemonReceivedEvent(player, pokemon, "Command"))) {
-//            return 0;
-//        }
-//
-//        if(!pps.hasSpace()) {
-//            // 엔트리에 공간이 없을 경우 pc로 보내짐
-//            StorageProxy.getParty(profile.getId()).add(pokemon);
-//        }
-
-//        if(!pcs.hasSpace())
-//            throw new CommandException(new StringTextComponent( "PC의 여유 공간이 존재하지 않습니다."));
 
         if (player != null && BattleRegistry.getBattle(player) != null) {
             StorageProxy.getPCForPlayer(profile.getId()).add(pokemon);
@@ -94,11 +79,6 @@ public class PokemonObtain{
         }
 
         player.sendMessage(new StringTextComponent(nickName + "님, " + pokemonName + "포켓몬 지급이 완료되었습니다."), player.getUniqueID());
-//        PixelmonCommandUtils.notifyCommandListener(player, this, 0, "pixelmon.command.give.notifygive" + (pokemon.isEgg() ? "egg" : ""), new Object[]{profile.getName(), profile.getName(), pokemon.getSpecies().getTranslatedName()});
-//        PixelmonCommandUtils.sendMessage(source, "pixelmon.command.give.givesuccess" + (pokemon.isEgg() ? "egg" : ""), new Object[]{profile.getName(), pokemon.getSpecies().getTranslatedName()});
-//        PixelmonCommandUtils.notifyCommandListener(source, this, 0, "pixelmon.command.give.notifygive" + (pokemon.isEgg() ? "egg" : ""), new Object[]{source.get, profile.getName(), pokemon.getSpecies().getTranslatedName()});
-
-//        source.sendFeedback(new StringTextComponent(sb.toString()), true);
         return 1;
     }
 

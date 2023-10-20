@@ -84,8 +84,6 @@ public class PokemonInfo {
         int leftExp = p.getExperienceToLevelUp();   // 다음 레벨업까지 남은 경험치
         int totalExp =  currentExp + leftExp;   // 총 경험치
 
-        String defaultBase = p.getSpecies().getDefaultForm().getDefaultBaseForm();
-
         StringBuilder sb = new StringBuilder();
         String header = "========= " + number + "번 포켓몬 정보 ===========";
         String footer = "==================================";
