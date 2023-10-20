@@ -6,6 +6,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
+import com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType;
 import com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage;
 import com.pixelmonmod.pixelmon.api.storage.StorageProxy;
 import net.minecraft.command.CommandException;
@@ -72,12 +73,12 @@ public class PokemonInfo {
         int pokemonLvl = p.getPokemonLevel();   // 포켓몬 레벨
 
         String healthRate = new DecimalFormat("##.##").format(p.getHealthPercentage());  // 포켓몬 최대 체력
-        int hp = p.getStats().getHP();
-        int atk = p.getStats().getAttack();
-        int def = p.getStats().getDefense();
-        int specDef = p.getStats().getSpecialDefense();
-        int specAtk = p.getStats().getSpecialAttack();
-        int speed = p.getStats().getSpeed();
+        int hp = p.getIVs().getStat(BattleStatsType.HP);
+        int atk = p.getIVs().getStat(BattleStatsType.ATTACK);
+        int def = p.getIVs().getStat(BattleStatsType.DEFENSE);
+        int specDef = p.getIVs().getStat(BattleStatsType.SPECIAL_ATTACK);
+        int specAtk = p.getIVs().getStat(BattleStatsType.SPECIAL_DEFENSE);
+        int speed = p.getIVs().getStat(BattleStatsType.SPEED);
 
         int maxHP = p.getMaxHealth();   // 포켓몬 체력
         int currentExp = p.getExperience(); // 포켓몬 현재 경험치
