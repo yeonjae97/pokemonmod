@@ -5,35 +5,24 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.pixelmonmod.pixelmon.api.command.PixelmonCommandUtils;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
-import com.pixelmonmod.pixelmon.api.pokemon.species.Species;
-import com.pixelmonmod.pixelmon.api.registries.PixelmonSpecies;
 import com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage;
 import com.pixelmonmod.pixelmon.api.storage.StorageProxy;
-import com.pixelmonmod.pixelmon.api.util.PixelmonPlayerUtils;
-import com.pixelmonmod.pixelmon.command.PixelmonCommands;
-import com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity;
-import com.pixelmonmod.pixelmon.quests.editor.args.ArgumentType;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
 
+
+/**
+ *
+ * @author 박연재
+ * @apiNote 포켓몬 정보 불러오기 병령어
+ *
+ */
 public class PokemonInfo {
-
 
     public PokemonInfo(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher.register(Commands.literal("포켓몬")
@@ -101,7 +90,7 @@ public class PokemonInfo {
         String header = "========= " + number + "번 포켓몬 정보 ===========";
         String footer = "==================================";
         sb.append(header + "\n").append("포켓몬명 : " + pokemonName + "\n")
-                .append("소유자명 : " + ownerName + "\n")
+                .append("§6소유자명 : " + ownerName + "\n")
                 .append("트레이너명 : " + trainer  + "\n")
                 .append("플레이어UUID : " + playerUUID  + "\n")
                 .append("트레이너UUID : " + trainerUUID  + "\n")
@@ -125,7 +114,7 @@ public class PokemonInfo {
                 .append("특수 방어력 : " + specDef  + "\n")
                 .append("이동 속도 : " + speed  + "\n")
                 .append(footer);
-        source.sendFeedback(new StringTextComponent(sb.toString()), true);
+        player.sendMessage(new StringTextComponent(sb.toString()), player.getUniqueID());
         return 1;
     }
 }

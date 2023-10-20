@@ -17,7 +17,6 @@ public class PokemonLoad {
         ServerPlayerEntity player = event.player;
         Pokemon pokemon = event.pokemon;
         player.sendMessage(ITextComponent.getTextComponentOrEmpty(pokemon.getFormattedNickname()+"포켓몬을 얻었습니다."), player.getUniqueID());
-
         player.sendMessage(ITextComponent.getTextComponentOrEmpty(
                 "=========== 포켓몬 정보 =========="
         + pokemon.getAbilityName()), player.getUniqueID());

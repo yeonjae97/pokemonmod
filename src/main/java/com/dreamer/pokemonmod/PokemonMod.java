@@ -49,7 +49,7 @@ public class PokemonMod {
 
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 
-        String rawMessage = "[Pokemonmod 플러그인이 활성화 중입니다]";
+        String rawMessage = "§6[Pokemonmod 플러그인이 활성화 중입니다]";
         byte[] bytes = rawMessage.getBytes(StandardCharsets.UTF_8);
         String utf8Message = new String(bytes, StandardCharsets.UTF_8);
         LOGGER.info(utf8Message);
@@ -57,7 +57,7 @@ public class PokemonMod {
 
     @SubscribeEvent
     public void onDisable(FMLServerStoppingEvent event) {
-        String rawMessage = "[Pokemonmod 플러그인이 비활성화 중입니다]";
+        String rawMessage = "§6[Pokemonmod 플러그인이 비활성화 중입니다]";
         byte[] bytes = rawMessage.getBytes(StandardCharsets.UTF_8);
         String utf8Message = new String(bytes, StandardCharsets.UTF_8);
         LOGGER.info(utf8Message);
