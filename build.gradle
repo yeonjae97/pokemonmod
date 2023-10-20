@@ -1,4 +1,5 @@
 plugins {
+    id 'java'
     id 'net.minecraftforge.gradle' version '5.1.+'
 }
 
@@ -6,9 +7,15 @@ plugins {
 group = 'com.dreamer.pokemonmod'
 version = '1.0-SNAPSHOT'
 
+def targetJavaVersion = 8
 java {
     archivesBaseName = 'pokemonmod'
-    toolchain.languageVersion = JavaLanguageVersion.of(8)
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
 }
 
 minecraft {
@@ -96,7 +103,15 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 repositories {
     // Put repositories for dependencies here
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
-
+    mavenCentral()
+    maven {
+        name = 'sonatype'
+        url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+    maven {
+        name = 'spigotmc-repo'
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
     // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
     flatDir {
         dirs './libs'
@@ -108,6 +123,7 @@ dependencies {
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
+    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
     implementation fg.deobf('pixelmon:Pixelmon-1.16.5-9.1.7-universal:9.1.7')
 //    implementation files('libs/Pixelmon-1.16.5-9.1.7-universal.jar')
 }
@@ -130,5 +146,16 @@ jar {
 jar.finalizedBy('reobfJar')
 
 tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release = targetJavaVersion
+    }
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
 }

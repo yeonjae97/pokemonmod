@@ -23,11 +23,6 @@ import net.minecraft.util.text.StringTextComponent;
  *
  */
 public class PokemonChangeIvs{
-
-    private static final BattleStatsType[] BATTLE_STATS_TYPE = {
-            BattleStatsType.HP, BattleStatsType.ATTACK, BattleStatsType.DEFENSE, BattleStatsType.SPECIAL_ATTACK,BattleStatsType.SPECIAL_DEFENSE,BattleStatsType.SPEED
-    };
-
     public PokemonChangeIvs(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher.register(Commands.literal("포켓몬설정")
                 .then(Commands.literal("개체변경")
@@ -55,9 +50,12 @@ public class PokemonChangeIvs{
 
         IVStore iv = pokemon.getIVs().createRandomNewIVs();
 
-        for(int i = 0; i<BATTLE_STATS_TYPE.length; i++){
-            pokemon.getIVs().setStat(BATTLE_STATS_TYPE[i], iv.getStat(BATTLE_STATS_TYPE[i]));
-        }
+        pokemon.getIVs().setStat(BattleStatsType.HP, iv.getStat(BattleStatsType.HP));
+        pokemon.getIVs().setStat(BattleStatsType.ATTACK, iv.getStat(BattleStatsType.ATTACK));
+        pokemon.getIVs().setStat(BattleStatsType.DEFENSE, iv.getStat(BattleStatsType.DEFENSE));
+        pokemon.getIVs().setStat(BattleStatsType.SPECIAL_ATTACK, iv.getStat(BattleStatsType.SPECIAL_ATTACK));
+        pokemon.getIVs().setStat(BattleStatsType.SPECIAL_DEFENSE, iv.getStat(BattleStatsType.SPECIAL_DEFENSE));
+        pokemon.getIVs().setStat(BattleStatsType.SPEED, iv.getStat(BattleStatsType.SPEED));
 
         int realHp = pokemon.getStats().getHP();
         int realAtk = pokemon.getStats().getAttack();
