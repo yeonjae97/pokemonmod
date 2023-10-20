@@ -12,6 +12,7 @@ import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.api.command.PixelmonCommandUtils;
 import com.pixelmonmod.pixelmon.api.data.DataSync;
 import com.pixelmonmod.pixelmon.api.events.PokedexEvent;
+import com.pixelmonmod.pixelmon.api.pokedex.PlayerPokedex;
 import com.pixelmonmod.pixelmon.api.pokedex.PokedexEntry;
 import com.pixelmonmod.pixelmon.api.pokedex.PokedexRegistrationStatus;
 import com.pixelmonmod.pixelmon.api.pokemon.*;
@@ -77,12 +78,12 @@ public class PokemonObtain {
 
         ServerPlayerEntity player = PixelmonCommandUtils.getEntityPlayer(profile.getId());
         PlayerPartyStorage pps = StorageProxy.getParty(player);    // 프로필
-//        PCStorage pcs = StorageProxy.getPCForPlayer(player);                // 스토리지
 
         List<Species> species = Arrays.stream(Pokedex.actualPokedex).collect(Collectors.toList());
-        for (Species list : species){
-            if(pokemonName.equals(list.getLocalizedName())){
-                pokemonName = list.getName();
+        for (Species s : species){
+            System.out.println(s);
+            if(pokemonName.equals(s.getLocalizedName())){
+                pokemonName = s.getName();
                 break;
             }
         }

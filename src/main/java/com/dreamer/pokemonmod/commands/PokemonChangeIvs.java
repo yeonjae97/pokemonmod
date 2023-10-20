@@ -4,8 +4,10 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.pixelmonmod.pixelmon.api.command.PixelmonCommandUtils;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType;
+import com.pixelmonmod.pixelmon.api.pokemon.stats.IVStore;
 import com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage;
 import com.pixelmonmod.pixelmon.api.storage.StorageProxy;
 import net.minecraft.command.CommandException;
@@ -21,6 +23,11 @@ import net.minecraft.util.text.StringTextComponent;
  *
  */
 public class PokemonChangeIvs{
+
+    private static final BattleStatsType[] BATTLE_STATS_TYPE = {
+            BattleStatsType.HP, BattleStatsType.ATTACK, BattleStatsType.DEFENSE, BattleStatsType.SPECIAL_ATTACK,BattleStatsType.SPECIAL_DEFENSE,BattleStatsType.SPEED
+    };
+
     public PokemonChangeIvs(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher.register(Commands.literal("포켓몬설정")
                 .then(Commands.literal("개체변경")
@@ -39,27 +46,18 @@ public class PokemonChangeIvs{
         }
 
         ServerPlayerEntity player = source.asPlayer();
-
         GameProfile profile;
 
-        profile = player.getGameProfile();
+        profile = PixelmonCommandUtils.findProfile(player.getScoreboardName());
         PlayerPartyStorage pps = StorageProxy.getParty(profile.getId());    // 프로필
 
         Pokemon pokemon = pps.get(slotNumber-1);
 
-        int hp = (int)(Math.random()*32);
-        int atk = (int)(Math.random()*32);
-        int def = (int)(Math.random()*32);
-        int specAtk = (int)(Math.random()*32);
-        int specDef = (int)(Math.random()*32);
-        int speed = (int)(Math.random()*32);
+        IVStore iv = pokemon.getIVs().createRandomNewIVs();
 
-        pokemon.getIVs().setStat(BattleStatsType.HP, hp);
-        pokemon.getIVs().setStat(BattleStatsType.ATTACK, atk);
-        pokemon.getIVs().setStat(BattleStatsType.DEFENSE, def);
-        pokemon.getIVs().setStat(BattleStatsType.SPECIAL_ATTACK, specAtk);
-        pokemon.getIVs().setStat(BattleStatsType.SPECIAL_DEFENSE, specDef);
-        pokemon.getIVs().setStat(BattleStatsType.SPEED, speed);
+        for(int i = 0; i<BATTLE_STATS_TYPE.length; i++){
+            pokemon.getIVs().setStat(BATTLE_STATS_TYPE[i], iv.getStat(BATTLE_STATS_TYPE[i]));
+        }
 
         int realHp = pokemon.getStats().getHP();
         int realAtk = pokemon.getStats().getAttack();
@@ -70,12 +68,12 @@ public class PokemonChangeIvs{
 
         StringBuilder sb = new StringBuilder();
         sb.append("================= 변경된 §a" + pokemon.getDisplayName() + "§b의 개체값 §f================\n")
-            .append("§bhp : §e" + hp  + "\n")
-            .append("§b공격력 : §e" + atk  + "\n")
-            .append("§b방어력 : §e" + def  + "\n")
-            .append("§b특수 공격력 : §e" + specAtk  + "\n")
-            .append("§b특수 방어력 : §e" + specDef  + "\n")
-            .append("§b이동 속도 : §e" + speed  + "\n")
+            .append("§bhp : §e" + pokemon.getIVs().getStat(BattleStatsType.HP)  + "\n")
+            .append("§b공격력 : §e" + pokemon.getIVs().getStat(BattleStatsType.ATTACK)   + "\n")
+            .append("§b방어력 : §e" + pokemon.getIVs().getStat(BattleStatsType.DEFENSE)  + "\n")
+            .append("§b특수 공격력 : §e" + pokemon.getIVs().getStat(BattleStatsType.SPECIAL_ATTACK)  + "\n")
+            .append("§b특수 방어력 : §e" + pokemon.getIVs().getStat(BattleStatsType.SPECIAL_DEFENSE)  + "\n")
+            .append("§b이동 속도 : §e" + pokemon.getIVs().getStat(BattleStatsType.SPEED)  + "\n")
                 .append("§f================= 변경된 §a" + pokemon.getDisplayName() + "§b의 실제값 §f================\n")
                 .append("§bhp : §e" + realHp  + "\n")
                 .append("§b공격력 : §e" + realAtk  + "\n")
