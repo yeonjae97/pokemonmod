@@ -81,7 +81,6 @@ public class PokemonObtain {
 
         List<Species> species = Arrays.stream(Pokedex.actualPokedex).collect(Collectors.toList());
         for (Species s : species){
-            System.out.println(s);
             if(pokemonName.equals(s.getLocalizedName())){
                 pokemonName = s.getName();
                 break;
@@ -111,7 +110,6 @@ public class PokemonObtain {
         }
         PixelmonCommandUtils.sendMessage(source,"§e" + profile.getName() + "§f님이, §e" + nickName + "§f님에게 §b" + pokemon.getDisplayName() + " §f포켓몬이 지급되었습니다.", null);
         PixelmonCommandUtils.sendMessage(source, "pixelmon.command.give.givesuccess" + (pokemon.isEgg() ? "egg" : ""), new Object[]{profile.getName(), pokemon.getSpecies().getTranslatedName()});
-//        PixelmonCommandUtils.notifyCommandListener(source, this, 0, "pixelmon.command.give.notifygive" + (pokemon.isEgg() ? "egg" : ""), new Object[]{source.getName(), profile.getName(), pokemon.getSpecies().getTranslatedName()});
 
         return 1;
 
