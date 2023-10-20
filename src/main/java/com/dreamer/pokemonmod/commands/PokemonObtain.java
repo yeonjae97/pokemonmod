@@ -16,11 +16,16 @@ import com.pixelmonmod.pixelmon.api.storage.PCStorage;
 import com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage;
 import com.pixelmonmod.pixelmon.api.storage.StorageProxy;
 import com.pixelmonmod.pixelmon.battles.BattleRegistry;
+import com.pixelmonmod.pixelmon.command.impl.PokeGiveCommand;
+import com.pixelmonmod.pixelmon.listener.PlayerCommandListener;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.ITextProperties;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextComponentUtils;
 
 /**
  *
@@ -54,7 +59,7 @@ public class PokemonObtain{
 
         ServerPlayerEntity player = PixelmonCommandUtils.getEntityPlayer(profile.getId());
         PlayerPartyStorage pps = StorageProxy.getParty(player);    // 프로필
-        PCStorage pcs = StorageProxy.getPCForPlayer(player);                // 스토리지
+//        PCStorage pcs = StorageProxy.getPCForPlayer(player);                // 스토리지
 
         PokemonSpecification spec = PokemonSpecificationProxy.create(pokemonName);
         if (!spec.getValue(SpeciesRequirement.class).isPresent()) {
@@ -77,9 +82,12 @@ public class PokemonObtain{
                 Pixelmon.EVENT_BUS.post(new PokedexEvent.Post(player.getUniqueID(), preEvent.getOldStatus(), preEvent.getPokemon(), preEvent.getNewStatus(), preEvent.getCause()));
             }
         }
+        PixelmonCommandUtils.sendMessage(source,"§e" + profile.getName() + "§f님이, §e" + nickName + "§f님에게 §b" + pokemon.getDisplayName() + " §f포켓몬이 지급되었습니다.", null);
+        PixelmonCommandUtils.sendMessage(source, "pixelmon.command.give.givesuccess" + (pokemon.isEgg() ? "egg" : ""), new Object[]{profile.getName(), pokemon.getSpecies().getTranslatedName()});
+//        PixelmonCommandUtils.notifyCommandListener(source, this, 0, "pixelmon.command.give.notifygive" + (pokemon.isEgg() ? "egg" : ""), new Object[]{source.getName(), profile.getName(), pokemon.getSpecies().getTranslatedName()});
 
-        player.sendMessage(new StringTextComponent(nickName + "님, " + pokemonName + "포켓몬 지급이 완료되었습니다."), player.getUniqueID());
         return 1;
+
     }
 
 }

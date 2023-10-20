@@ -61,6 +61,13 @@ public class PokemonChangeIvs{
         pokemon.getIVs().setStat(BattleStatsType.SPECIAL_DEFENSE, specDef);
         pokemon.getIVs().setStat(BattleStatsType.SPEED, speed);
 
+        int realHp = pokemon.getStats().getHP();
+        int realAtk = pokemon.getStats().getAttack();
+        int realDef = pokemon.getStats().getDefense();
+        int realSpecAtk = pokemon.getStats().getSpecialAttack();
+        int realSpecDef = pokemon.getStats().getSpecialDefense();
+        int realSpeed = pokemon.getStats().getSpeed();
+
         StringBuilder sb = new StringBuilder();
         sb.append("================= 변경된 §a" + pokemon.getDisplayName() + "§b의 개체값 §f================\n")
             .append("§bhp : §e" + hp  + "\n")
@@ -69,6 +76,13 @@ public class PokemonChangeIvs{
             .append("§b특수 공격력 : §e" + specAtk  + "\n")
             .append("§b특수 방어력 : §e" + specDef  + "\n")
             .append("§b이동 속도 : §e" + speed  + "\n")
+                .append("§f================= 변경된 §a" + pokemon.getDisplayName() + "§b의 실제값 §f================\n")
+                .append("§bhp : §e" + realHp  + "\n")
+                .append("§b공격력 : §e" + realAtk  + "\n")
+                .append("§b방어력 : §e" + realDef  + "\n")
+                .append("§b특수 공격력 : §e" + realSpecAtk  + "\n")
+                .append("§b특수 방어력 : §e" + realSpecDef  + "\n")
+                .append("§b이동 속도 : §e" + realSpeed  + "\n")
                 .append("§f=========================================================");
         if(pokemon.isLegendary()){
             player.sendMessage(new StringTextComponent(sb.toString()), player.getUniqueID());
