@@ -19,3 +19,7 @@
 
 
 
+# 영상 링크
+https://www.youtube.com/watch?v=sgpMb3q-T64)https://www.youtube.com/watch?v=sgpMb3q-T64
+
+
