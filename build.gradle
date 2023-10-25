@@ -123,7 +123,7 @@ dependencies {
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
-    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+
     implementation fg.deobf('pixelmon:Pixelmon-1.16.5-9.1.7-universal:9.1.7')
 //    implementation files('libs/Pixelmon-1.16.5-9.1.7-universal.jar')
 }

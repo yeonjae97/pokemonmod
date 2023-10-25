@@ -38,14 +38,14 @@ public class PokemonObtain {
     public PokemonObtain(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher.register(Commands.literal("포켓몬설정")
                 .then(Commands.literal("지급")
-                        .then(Commands.argument("닉네임" ,StringArgumentType.string()))
+                        .then(Commands.argument("닉네임" ,StringArgumentType.string())
                                 .then(Commands.argument( "포켓몬이름", StringArgumentType.greedyString())
                                         .executes((command) -> {
 
                                             String nickName = command.getArgument("닉네임", String.class);
                                             String pokemonName = command.getArgument("포켓몬이름", String.class);
                                             return obtain(nickName, pokemonName, command.getSource());
-                                        }))));
+                                        })))));
 
     }
 
