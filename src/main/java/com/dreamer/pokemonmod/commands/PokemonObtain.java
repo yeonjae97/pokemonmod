@@ -11,13 +11,19 @@ import com.pixelmonmod.api.pokemon.requirement.impl.SpeciesRequirement;
 import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.api.command.PixelmonCommandUtils;
 import com.pixelmonmod.pixelmon.api.events.PokedexEvent;
+import com.pixelmonmod.pixelmon.api.pokedex.PokedexEntry;
 import com.pixelmonmod.pixelmon.api.pokedex.PokedexRegistrationStatus;
 import com.pixelmonmod.pixelmon.api.pokemon.*;
 import com.pixelmonmod.pixelmon.api.pokemon.species.Pokedex;
 import com.pixelmonmod.pixelmon.api.pokemon.species.Species;
+import com.pixelmonmod.pixelmon.api.registries.PixelmonSpecies;
 import com.pixelmonmod.pixelmon.api.storage.*;
 import com.pixelmonmod.pixelmon.api.util.ITranslatable;
 import com.pixelmonmod.pixelmon.battles.BattleRegistry;
+import com.pixelmonmod.pixelmon.client.gui.pokedex.PokedexScreen;
+import com.pixelmonmod.pixelmon.command.impl.PokeGiveCommand;
+import com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity;
+import com.pixelmonmod.pixelmon.init.registry.PixelmonRegistry;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
@@ -58,12 +64,12 @@ public class PokemonObtain {
             throw new CommandException(new StringTextComponent("해당 닉네임을 가진 프로필이 존재하지 않습니다."));
         }
 
-        ServerPlayerEntity player = PixelmonCommandUtils.getEntityPlayer(profile.getId());
+        ServerPlayerEntity player = PixelmonCommandUtils.requireEntityPlayer(source);
         PlayerPartyStorage pps = StorageProxy.getParty(player);    // 프로필
 
-        List<Species> species = Arrays.stream(Pokedex.actualPokedex).collect(Collectors.toList());
+        List<Species> species = PixelmonSpecies.getAll();
         for (Species s : species){
-            if(pokemonName.equals(s.getLocalizedName())){
+            if(pokemonName.equals(s.getTranslatedName())){
                 pokemonName = s.getName();
                 break;
             }
@@ -87,10 +93,10 @@ public class PokemonObtain {
             if (!Pixelmon.EVENT_BUS.post(preEvent)) {
                 pps.playerPokedex.set(preEvent.getPokemon(), preEvent.getNewStatus());
                 pps.playerPokedex.update();
-                Pixelmon.EVENT_BUS.post(new PokedexEvent.Post(player.getUniqueID(), preEvent.getOldStatus(), preEvent.getPokemon(), preEvent.getNewStatus(), preEvent.getCause()));
+                Pixelmon.EVENT_BUS.post(new PokedexEvent.Post(player.getUUID(), preEvent.getOldStatus(), preEvent.getPokemon(), preEvent.getNewStatus(), preEvent.getCause()));
             }
         }
-        PixelmonCommandUtils.sendMessage(source,"§e" + profile.getName() + "§f님이, §e" + nickName + "§f님에게 §b" + pokemon.getDisplayName() + " §f포켓몬이 지급되었습니다.", null);
+        PixelmonCommandUtils.sendMessage(source,"§e" + profile.getName() + "§f님이, §e" + nickName + "§f님에게 §b" + pokemon.getSpecies().getLocalizedName() + " §f포켓몬이 지급되었습니다.", null);
         PixelmonCommandUtils.sendMessage(source, "pixelmon.command.give.givesuccess" + (pokemon.isEgg() ? "egg" : ""), new Object[]{profile.getName(), pokemon.getSpecies().getTranslatedName()});
 
         return 1;

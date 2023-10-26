@@ -48,8 +48,7 @@ public class Lore {
         String ability = p.getAbility().getLocalizedName();                 // 특성 이름 가져옴 ( 현재 영어로 가져옴 )
 
         StringBuilder sb = new StringBuilder();
-        sb.append("§f[ §6ICY System §f] §a" + pokemonName + " §6LV." + lvl + "\n")
-                .append("§c폼 §f: " + form + " §f| ").append("§e이로치 §f: " + checkIrochi + " §f| ").append("§b스킨 : §f" + skin  + "\n")
+        sb.append("§c폼 §f: " + form + " §f| ").append("§e이로치 §f: " + checkIrochi + " §f| ").append("§b스킨 : §f" + skin  + "\n")
                 .append("§b성별 §f: " + gender  + "\n")
                 .append("§3성격 §f: " + nature  + "\n")
                 .append("§c크기 §f: " + growth  + "\n")

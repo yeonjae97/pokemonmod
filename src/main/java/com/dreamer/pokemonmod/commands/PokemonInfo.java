@@ -39,7 +39,7 @@ public class PokemonInfo {
             throw new CommandException(new StringTextComponent("유효하지 않는 숫자입니다!"));
         }
 
-        ServerPlayerEntity player = source.asPlayer();
+        ServerPlayerEntity player = source.getPlayerOrException();
 
         GameProfile profile;
 
@@ -113,7 +113,7 @@ public class PokemonInfo {
                 .append("특수 방어력 : " + specDef  + "\n")
                 .append("이동 속도 : " + speed  + "\n")
                 .append(footer);
-        player.sendMessage(new StringTextComponent(sb.toString()), player.getUniqueID());
+        player.sendMessage(new StringTextComponent(sb.toString()), player.getUUID());
         return 1;
     }
 }

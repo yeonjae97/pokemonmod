@@ -24,19 +24,6 @@ import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.StringTextComponent;
 
-/**
- * 1. /포켓몬설정 지급 닉네임 포켓몬한글이름 - 유저분한테 포켓몬 지급
- *
- * 2. /포켓몬설정 개체변경 슬롯
- * -> Iv가 개체인데 이게 0~31까지 있음 이 값을 랜덤으로 변경
- * —> /ivs 슬롯.  으로 확인가능
- *
- * 3. /포켓몬설정 검사 슬롯
- * —> 해당 슬롯의 포켓몬이 전설인지 확인
- *
- * 4. /포켓몬설정 전체검사 닉네임
- * —> 해당 유저가 전설을 몇말리 들고있느 확인
- */
 public class PokemonCheckLegend {
     public PokemonCheckLegend(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher.register(Commands.literal("포켓몬설정")
@@ -56,7 +43,7 @@ public class PokemonCheckLegend {
         }
 
 
-        ServerPlayerEntity player = source.asPlayer();
+        ServerPlayerEntity player = PixelmonCommandUtils.requireEntityPlayer(source);
 
         GameProfile profile;
 
@@ -66,9 +53,9 @@ public class PokemonCheckLegend {
 
         Pokemon pokemon = pps.get(slotNumber-1);
         if(pokemon.isLegendary()){
-            player.sendMessage(new StringTextComponent("§b" + pokemon.getDisplayName() + " §f의 등급은 §6레전더리 §f입니다"), player.getUniqueID());
+            player.sendMessage(new StringTextComponent("§b" + pokemon.getDisplayName() + " §f의 등급은 §6레전더리 §f입니다"), player.getUUID());
         } else {
-            player.sendMessage(new StringTextComponent("§e" + pokemon.getDisplayName() + " §f의 등급은 레전더리가 아닙니다!"), player.getUniqueID());
+            player.sendMessage(new StringTextComponent("§e" + pokemon.getDisplayName() + " §f의 등급은 레전더리가 아닙니다!"), player.getUUID());
         }
         return 1;
     }

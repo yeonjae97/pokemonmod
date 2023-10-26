@@ -40,7 +40,7 @@ public class PokemonChangeIvs{
             throw new CommandException(new StringTextComponent("유효하지 않는 숫자입니다!"));
         }
 
-        ServerPlayerEntity player = source.asPlayer();
+        ServerPlayerEntity player = PixelmonCommandUtils.requireEntityPlayer(source);
         GameProfile profile;
 
         profile = PixelmonCommandUtils.findProfile(player.getScoreboardName());

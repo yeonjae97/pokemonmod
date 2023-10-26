@@ -57,11 +57,11 @@ public class RightClickEvent {
                 ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
 
                 pokeBook.shrink(1);
-                CompoundNBT tag = JsonToNBT.getTagFromJson(pokeBook.getTag().getString("PokemonNBT"));
+                CompoundNBT tag = JsonToNBT.parseTag(pokeBook.getTag().getString("PokemonNBT"));
                 Pokemon pokemon = PokemonBuilder.builder().species(event.getItemStack().getTag().getInt("PokeBookName")).build();
                 pokemon.readFromNBT(tag);
-                StorageProxy.getParty(player.getUniqueID()).add(pokemon);
-                player.sendMessage(new StringTextComponent("§6아이템을 포켓몬으로 변환하였습니다 !"), player.getUniqueID());
+                StorageProxy.getParty(player.getUUID()).add(pokemon);
+                player.sendMessage(new StringTextComponent("§6아이템을 포켓몬으로 변환하였습니다 !"), player.getUUID());
                 LogFile.Use(pokemon, player, new Date());
             } else {
                 return;

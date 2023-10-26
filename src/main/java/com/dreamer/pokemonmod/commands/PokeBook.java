@@ -1,7 +1,6 @@
 package com.dreamer.pokemonmod.commands;
 
 import com.dreamer.pokemonmod.PokemonMod;
-import com.dreamer.pokemonmod.config.Config;
 import com.dreamer.pokemonmod.log.LogFile;
 import com.dreamer.pokemonmod.objects.CreateBook;
 import com.mojang.authlib.GameProfile;
@@ -10,16 +9,12 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.pixelmonmod.pixelmon.api.command.PixelmonCommandUtils;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
-import com.pixelmonmod.pixelmon.api.pokemon.species.tags.Tags;
 import com.pixelmonmod.pixelmon.api.storage.*;
-import com.pixelmonmod.pixelmon.battles.BattleRegistry;
-import com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Util;
 import net.minecraft.util.text.StringTextComponent;
 import java.util.*;
 
@@ -62,14 +57,13 @@ public class PokeBook {
         }
 
         ItemStack pokeBook = CreateBook.getStack(player, p);
-        if(player.addItemStackToInventory(pokeBook)){
+        if(player.addItem(pokeBook)){
             pps.set(index, null);
-            player.sendMessage(new StringTextComponent("§f[§bSystem§f] §6" + p.getLocalizedName() + "§f을(를) 아이템으로 변환하였습니다 !"), player.getUniqueID());
+            player.sendMessage(new StringTextComponent("§f[§bSystem§f] §6" + p.getLocalizedName() + "§f을(를) 아이템으로 변환하였습니다 !"), player.getUUID());
             LogFile.pb(p, player, new Date());
         } else {
-            player.sendMessage(new StringTextComponent("§f[&bSystem&f] 인벤토리의 공간이 부족합니다 !"), player.getUniqueID());
+            player.sendMessage(new StringTextComponent("§f[&bSystem&f] 인벤토리의 공간이 부족합니다 !"), player.getUUID());
         }
-
         return 1;
     }
 

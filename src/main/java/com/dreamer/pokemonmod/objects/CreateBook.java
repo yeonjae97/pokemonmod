@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.StringNBT;
+import net.minecraft.util.text.StringTextComponent;
 
 public class CreateBook {
 
@@ -23,9 +24,9 @@ public class CreateBook {
         ListNBT lore = new ListNBT();
         String baseLore = Lore.getDesc(player, pokemon);
         lore.add(StringNBT.valueOf( "\"" + baseLore + "\""));
-//        String name = pokemon.getLocalizedName() + " &6Lv." + pokemon.getPokemonLevel();
-//        photo.setDisplayName(new StringTextComponent("&f[ &6ICY System &f] &a" + name));
-        photo.getOrCreateChildTag("display").put("Lore", lore);
+        String name = pokemon.getLocalizedName() + " §6Lv." + pokemon.getPokemonLevel();
+        photo.setHoverName(new StringTextComponent("§f[ §6ICY System §f] §a" + name));
+        photo.getOrCreateTagElement("display").put("Lore", lore);
         return photo;
     }
 }
