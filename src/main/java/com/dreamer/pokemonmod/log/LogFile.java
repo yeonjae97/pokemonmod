@@ -4,8 +4,10 @@ import com.dreamer.pokemonmod.utils.Lore;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType;
 import com.sun.javafx.binding.StringFormatter;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import org.apache.logging.log4j.core.jmx.Server;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -94,17 +96,18 @@ public class LogFile {
         String dateStr = simpleDateFormat.format(date);
         String path = "./config/PokeBook/PokeBookLog/" + dateStr;
         File Folder = new File(path);
-        File Log = new File(path + "\\ItemToPoke.txt");
+        File Log = new File(path + "/ItemToPoke.txt");
         if (!Folder.exists()) {
             try {
-                Folder.mkdir();
-                Log.createNewFile();
+                Folder.mkdirs();
+
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
         }
         try {
+            Log.createNewFile();
             FileWriter wr = new FileWriter(Log, true);
             String now = simpleDateFormat2.format(date);
             ArrayList<Boolean> crown = new ArrayList<Boolean>();

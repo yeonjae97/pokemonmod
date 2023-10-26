@@ -34,7 +34,6 @@ public class Lore {
 
     public static String getDesc(ServerPlayerEntity senderPlayer, Pokemon p){
 
-
         String pokemonName = p.getLocalizedName();
         String gender = p.getGender().getLocalizedName();  // 성별
         short friendship = (short)p.getFriendship();  // 친밀도
@@ -47,8 +46,6 @@ public class Lore {
         String skin = p.isDefaultPalette() ? "없음" : "있음";
         String heldItem = p.getHeldItemAsItemHeld().getLocalizedName();   // 툴팁 이름 가져옴
         String ability = p.getAbility().getLocalizedName();                 // 특성 이름 가져옴 ( 현재 영어로 가져옴 )
-
-        senderPlayer.sendMessage(new StringTextComponent("==================================="), senderPlayer.getUniqueID());
 
         StringBuilder sb = new StringBuilder();
         sb.append("§f[ §6ICY System §f] §a" + pokemonName + " §6LV." + lvl + "\n")

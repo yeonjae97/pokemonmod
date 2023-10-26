@@ -1,16 +1,10 @@
 package com.dreamer.pokemonmod;
 
 
-import com.dreamer.pokemonmod.commands.PokeBook;
 import com.dreamer.pokemonmod.config.Config;
-import com.dreamer.pokemonmod.events.rightClickEvent;
-import com.pixelmonmod.pixelmon.Pixelmon;
+import com.dreamer.pokemonmod.events.RightClickEvent;
 import com.pixelmonmod.pixelmon.api.config.api.yaml.YamlConfigFactory;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -53,7 +47,7 @@ public class PokemonMod {
 
     public static void onModLoad(FMLCommonSetupEvent event) {
         // 이벤트를 추가 하고 메시지를 전송합니다.
-        MinecraftForge.EVENT_BUS.register(new rightClickEvent());
+        MinecraftForge.EVENT_BUS.register(new RightClickEvent());
         System.out.println("픽셀몬 북 모드가 로드가 완료 됐습니다.");
     }
 

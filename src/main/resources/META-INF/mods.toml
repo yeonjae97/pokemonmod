@@ -57,9 +57,9 @@ description='''
    ordering="NONE"
    side="BOTH"
 
-[[dependencies.pokemonmod]]
-    modId="pixelmon"
-    mandatory=true
-    versionRange="[9.1.5,)"
-    ordering="NONE"
-    side="BOTH"
+# [[dependencies.pokemonmod]]
+#     modId="pixelmon"
+#     mandatory=true
+#     versionRange="[9.1.7,)"
+#     ordering="NONE"
+#     side="BOTH"
