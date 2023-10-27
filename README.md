@@ -1,9 +1,9 @@
 # pokemonmod
 
 # 버전
-마인크래프트 버전 : arclight-forge-1.16.5-1.0.22  
+마인크래프트 버전 : arclight-forge-1.16.5-1.0.22 ( forge 1.16.5-36.2.39 )  
 외부 라이브러리 : Pixelmon-1.16.5-9.1.7-universal  
-모드 버전 : '1.0-SNAPSHOT'  
+모드 버전 : '0.0.1'  
 
 # 설명
 픽셀몬 플러그인의 명령어 일부를 한글화하여 변형한 모드입니다.
@@ -20,6 +20,9 @@
 
 
 # 영상 링크
+
+## 포켓몬 및 설정 관련 명령어
 https://www.youtube.com/watch?v=sgpMb3q-T64)https://www.youtube.com/watch?v=sgpMb3q-T64
 
-
+## 포켓북 명령어
+https://www.youtube.com/watch?v=eDx4f28RjFM
