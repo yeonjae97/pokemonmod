@@ -69,7 +69,7 @@ public class PokemonObtain {
 
         List<Species> species = PixelmonSpecies.getAll();
         for (Species s : species){
-            if(pokemonName.equals(s.getTranslatedName())){
+            if(pokemonName.equals(s.getLocalizedName())){
                 pokemonName = s.getName();
                 break;
             }

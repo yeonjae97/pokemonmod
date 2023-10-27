@@ -100,7 +100,9 @@ public class Lore {
         sb.append("\n§9왕관 §f: ");
         for (int i = 0;  i < p.getIVs().getArray().length; i++) {
             if (p.getIVs().isHyperTrained(BattleStatsType.EV_IV_STATS[i])) {
-                sb.append(BottlecapItem.onSilverSelection(senderPlayer, p, BattleStatsType.EV_IV_STATS[i]) ? "§bO" : "§cX");
+                sb.append("§bO");
+            } else {
+                sb.append("§bX");
             }
         }
 
